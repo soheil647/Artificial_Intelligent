@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 df = pd.read_csv("AdmissionPredict.csv")
 print(df)
 
+########################################################################################
 # Using Head/Tail Function to see 5 first Rows/2 Last Row of DataFrame
 # print(x.head(5))
 # print(x.tail(2))
@@ -22,17 +23,62 @@ print(df["TOEFL Score"].isna().sum())
 print("CGPA NaN Number is:")
 print(df["CGPA"].isna().sum())
 
+########################################################################################
 # Filling Every NaN with its column mean except last column
 df = df.fillna(df.loc[:, ["GRE Score", "TOEFL Score", "CGPA"]].mean())
 # print(df)  # to Show NaN are Replaced
 
-# ScatterPlot for Each Variable for Chance of Admit Column
-plt.subplot(2 , 1 , 1)
-plt.xlabel('')
-plt.plot(df["GRE Score"], df["Chance of Admit"], 'bo')
-plt.subplot(2, 1, 2)
-plt.plot(df["TOEFL Score"], df["Chance of Admit"], 'ro')
-plt.show()
-plt.plot(df["TOEFL Score"], df["Chance of Admit"], 'ro')
-plt.show()
+########################################################################################
+# Uncomment for Plots
+# # ScatterPlot for Each Variable for Chance of Admit Column
+# plt.xlabel('Serial No.')
+# plt.ylabel('Chance of Admit')
+# plt.plot(df["Serial No."], df["Chance of Admit"], 'bo')
+# plt.show()
+#
+# plt.xlabel('GRE Score')
+# plt.ylabel('Chance of Admit')
+# plt.plot(df["GRE Score"], df["Chance of Admit"], 'ro')
+# plt.show()
+#
+# plt.xlabel('TOEFL Score')
+# plt.ylabel('Chance of Admit')
+# plt.plot(df["TOEFL Score"], df["Chance of Admit"], 'go')
+# plt.show()
+#
+# plt.xlabel('University Rating')
+# plt.ylabel('Chance of Admit')
+# plt.plot(df["University Rating"], df["Chance of Admit"], 'yo')
+# plt.show()
+#
+# plt.xlabel('SOP')
+# plt.ylabel('Chance of Admit')
+# plt.plot(df["SOP"], df["Chance of Admit"], 'co')
+# plt.show()
+#
+# plt.xlabel('LOR ')
+# plt.ylabel('Chance of Admit')
+# plt.plot(df["LOR "], df["Chance of Admit"], 'mo')
+# plt.show()
+#
+# plt.xlabel('CGPA')
+# plt.ylabel('Chance of Admit')
+# plt.plot(df["CGPA"], df["Chance of Admit"], 'ko')
+# plt.show()
+#
+# plt.xlabel('Research')
+# plt.ylabel('Chance of Admit')
+# plt.plot(df["Research"], df["Chance of Admit"], 'ro')
+# plt.show()
 
+########################################################################################
+# # Filter Accepted Students
+# FilterAccepted = df[(df['CGPA'] >= 9) & (df['TOEFL Score'] >= 110)]
+# print("Number of Accepted Students are " + str(FilterAccepted['Serial No.'].count()))  # 97 Students are accepted
+#
+# # Calculate GRE for each university
+# for i in range(1, 6):
+#     x = df.loc[df['University Rating'] == i]['GRE Score'].mean()
+#     print("University Rate " + str(i) + " Mean GRE is " + str(x))
+
+########################################################################################

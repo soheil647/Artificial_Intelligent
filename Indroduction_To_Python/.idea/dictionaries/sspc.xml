@@ -2,6 +2,8 @@
   <dictionary name="sspc">
     <words>
       <w>cgpa</w>
+      <w>xlabel</w>
+      <w>ylabel</w>
     </words>
   </dictionary>
 </component>
