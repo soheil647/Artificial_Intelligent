@@ -2,8 +2,10 @@
   <dictionary name="sspc">
     <words>
       <w>cgpa</w>
-      <w>xlabel</w>
-      <w>ylabel</w>
+      <w>costnew</w>
+      <w>deriv</w>
+      <w>iters</w>
+      <w>teta</w>
     </words>
   </dictionary>
 </component>

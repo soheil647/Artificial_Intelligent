@@ -1,6 +1,9 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
+import pulp as p
 
+# from sympy import *
 df = pd.read_csv("AdmissionPredict.csv")
 print(df)
 
@@ -30,7 +33,7 @@ df = df.fillna(df.loc[:, ["GRE Score", "TOEFL Score", "CGPA"]].mean())
 
 ########################################################################################
 # Uncomment for Plots
-# # ScatterPlot for Each Variable for Chance of Admit Column
+# ScatterPlot for Each Variable for Chance of Admit Column
 # plt.xlabel('Serial No.')
 # plt.ylabel('Chance of Admit')
 # plt.plot(df["Serial No."], df["Chance of Admit"], 'bo')
@@ -82,3 +85,24 @@ df = df.fillna(df.loc[:, ["GRE Score", "TOEFL Score", "CGPA"]].mean())
 #     print("University Rate " + str(i) + " Mean GRE is " + str(x))
 
 ########################################################################################
+df_New = df[["CGPA", "Chance of Admit"]]
+print(np.sum(df_New['CGPA']))
+print(df_New)
+export_csv = df_New.to_csv(
+    '/home/sspc/Desktop/AI_Projects/Indroduction_To_Python/dataframe.csv')  # Don't forget to add '.csv' at the end of the path
+#
+#
+# def h(x, t0, t1):
+#     return t0 + t1 * x
+#
+#
+# def j(x, y, t0, t1):
+#     return (1 / df_New.count())(np.sum((h(x, t0, t1) - y) ** 2))
+#
+#
+# Lp_prob = p.LpProblem('Problem', p.LpMinimize)
+#
+# teta0 = p.LpVariable("teta0", lowBound=0)
+# teta1 = p.LpVariable("teta1", lowBound=0)
+
+# teta0, teta1 = symbols('t0 t1')
