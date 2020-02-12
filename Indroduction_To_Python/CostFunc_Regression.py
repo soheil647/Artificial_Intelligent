@@ -1,10 +1,10 @@
-from Ca0 import df_New
+from Ca0 import df_New, df
 import matplotlib.pyplot as plt
 import numpy as np
 
+df_withNaN = df
 df_New = df_New.dropna()
 df_New = df_New.reset_index(drop=True)
-print(df_New)
 
 
 def cost_function(radio, sales, weight, bias):
@@ -52,8 +52,6 @@ def train(radio, sales, weight, bias, learning_rate, iters):
     return weight, bias, cost_history
 
 
-# print(df_New["Chance of Admit"])
-print(len(df_New["Chance of Admit"]))
 teta0 = 1
 teta1 = -1
 teta0, teta1, costnew = train(df_New["CGPA"], df_New["Chance of Admit"], teta0, teta1, 0.01, 384)
@@ -64,3 +62,13 @@ plt.plot(df_New["CGPA"], df_New["Chance of Admit"], 'ko')
 x_plot = np.linspace(6.7, 10, 1000)
 plt.plot(x_plot, x_plot * teta0 + teta1)
 plt.show()
+
+
+def fill_na(x):
+    return 0.21 * x - 1.0909
+
+
+df_withNaN["Chance of Admit"] = df_withNaN["Chance of Admit"].fillna(fill_na(df_withNaN['CGPA']))
+print(df_withNaN)
+export_csv = df_withNaN.to_csv(
+    '/home/sspc/Desktop/AI_Projects/Indroduction_To_Python/dataframe_Final.csv')
