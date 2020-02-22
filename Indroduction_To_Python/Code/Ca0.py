@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+import pulp as p
 
 df = pd.read_csv("AdmissionPredict.csv")
 print(df)
