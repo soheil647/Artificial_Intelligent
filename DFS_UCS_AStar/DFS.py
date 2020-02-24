@@ -9,6 +9,8 @@ for line in fobj:
     initial_state.append(new_arr)
 fobj.close()
 
+print(np.array(initial_state).reshape([len(initial_state), len(initial_state[-1])]))
+
 fobj = open("out1.txt")
 final_state = []
 for line in fobj:
@@ -19,20 +21,13 @@ fobj.close()
 #          print(print(np.array(state).reshape([7, 6])))
 p = Problem(initial_state, None, final_state, None)
 alg = Algorithms(p)
-print(p.find_ambulance(initial_state))
-print(p.ambulance_y, p.ambulance_x)
-p.find_hospitals(initial_state)
-p.find_patient(initial_state)
-p.find_walls(initial_state)
-
-print("DFS unlimited :")
-alg.DFS_Unlimited(initial_state, initial_state)
-print("max node expored : ", alg.maxNodeExplored, " max node expanded : ", alg.maxNodeExpanded, " answer depth : ", alg.answerDepth)
 
 
-# print("A* answer :")
-# alg.Astar(initial_state, initial_state)
-# print("max node expored : ", alg.maxNodeExplored, " max node expanded : ", alg.maxNodeExpanded, " answer depth : ", alg.answerDepth)
+# print("DFS unlimited :")
+# alg.DFS_Unlimited(initial_state, initial_state)
+# print("max node explored : ", alg.maxNodeExplored, " max node expanded : ", alg.maxNodeExpanded, " answer depth : ",
+#       alg.answerDepth)
 
-
-
+print("BFS answer :")
+alg.BFS(initial_state,initial_state)
+print("max node expored : ",alg.maxNodeExplored," max node expanded : ",alg.maxNodeExpanded," answer depth : ",alg.answerDepth)
