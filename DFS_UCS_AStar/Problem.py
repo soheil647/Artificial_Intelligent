@@ -12,6 +12,8 @@ class Problem:
         self.have_patient = False               # Whether there is patient in hospital or not
         self.ambulance_x = 0                    # Ambulance x coordinate
         self.ambulance_y = 0                    # Ambulance y coordinate
+        self.patient_list =[[]]
+        self.hospital_list =[[]]
 
     #  just for Hospital problem
     # To find Where is the ambulance x and y in our new state
@@ -21,6 +23,20 @@ class Problem:
                 if state[i][j] == 'A':
                     self.ambulance_y = i
                     self.ambulance_x = j
+
+    def find_patient(self, state):
+        for i in range(len(state)):
+            for j in range(len(state[i])):
+                if state[i][j] == 'P':
+                    self.patient_list.append([i,j])
+
+    def find_hospital(self, state):
+        for i in range(len(state)):
+            for j in range(len(state[i])):
+                if state[i][j].isdigit():
+                    self.hospital_list.append([i,j])
+
+
 
     def assign_movement(self, state, movement):
         state_update = [[' ' for x in range(len(state[-1]))] for y in range(len(state))]     # to update for a new state
@@ -39,6 +55,7 @@ class Problem:
     # To Generate the states that agent can move in that direction
     def state_generator(self, state):
         self.find_ambulance(state)
+        self.find_patient(state)
         allowed_moves = ['down', 'up', 'right', 'left']
         # To remove the direction that there is an obstacle in the way
         if self.check_obstacle(state, self.ambulance_x, self.ambulance_y - 1):
