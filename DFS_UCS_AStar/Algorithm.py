@@ -18,6 +18,14 @@ class Algorithms:
         self.solved = False
         self.problem.have_patient = False
 
+    def state_cost(self, state_properties):
+        cost = 0
+        for r in range(1, 9):
+            cost += r
+            # i, j = self.find(state, r)
+            # cost += abs(slidingPuzzle_value[r - 1]['i'] - i) + abs(slidingPuzzle_value[r - 1]['j'] - j)
+        return cost
+
     def dfs(self, state_properties, states_array):
         try:
             if not self.solved:
@@ -52,7 +60,7 @@ class Algorithms:
             print('DFS unlimited exceed its max recursion')
 
     def bfs(self, state_properties, states_array):
-        # try:
+        try:
             if not self.solved:
                 preferred_state = {}
                 states_generated = self.problem.allowed_actions(state_properties)
@@ -95,30 +103,83 @@ class Algorithms:
                             new_copy = copy.deepcopy(states_array)
                             new_copy.append(section_state['state'])
                             self.bfs(section_state, new_copy)
-        # except:
-        #     print('BFS exceed its max recursion')
+        except:
+            print('BFS exceed its max recursion')
 
-    def DFS_Growing_Depth(self, state, states_array, maxDepth, counter):
+    def ids(self, state_properties, states_array, max_depth, counter):
         try:
             if not self.solved:
-                # limit = 500
                 self.answerDepth += 1
-                if (self.problem.is_final_state(state)):
-                    print(states_array)
+                have_final_state = self.problem.is_final_state(state_properties)
+                if have_final_state == "Solve":
+                    print("Final for DFS_Growing_Depth")
+                    print(np.array(state_properties['state']).reshape(
+                        [len(state_properties['state']), len(state_properties['state'][-1])]))
                     self.solved = True
                     self.answerDepth = len(states_array)
-                    return state, states_array
-                if counter > maxDepth:
+                    return state_properties, states_array
+                if have_final_state == "Patient":
+                    self.problem.have_patient = True
+                if have_final_state == "Hospital":
+                    self.problem.have_patient = False
+                if counter > max_depth / 5:
                     return -1
-                if counter % 100 == 0:
-                    maxDepth *= 2
-                states_generated = self.problem.allowed_actions(state)
+                # if counter % 10 == 0:
+                #     max_depth *= 2
+                states_generated = self.problem.allowed_actions(state_properties)
                 self.maxNodeExpanded += 1
                 self.maxNodeExplored += 1
+                # print("current")
+                # print(np.array(state_properties['state']).reshape(
+                #     [len(state_properties['state']), len(state_properties['state'][-1])]))
+                # print("Have Patient: ", state_properties['have_patient'])
+                # print("is Hospital: ", state_properties['is_hospital'])
+                # print("Self have patient: ", self.problem.have_patient)
                 for section_state in states_generated:
-                    if section_state not in states_array:
-                        new_copy = self.copy_array(states_array)
-                        new_copy.append(section_state)
-                        self.DFS_Growing_Depth(section_state, new_copy, maxDepth, counter + 1)
+                    if section_state['state'] not in states_array:
+                        new_copy = copy.deepcopy(states_array)
+                        new_copy.append(section_state['state'])
+                        self.ids(section_state, new_copy, max_depth, counter + 1)
         except:
             print('DFS_growing_depth exceed its max recursion')
+
+    def a_star(self, state_properties, states_array):
+        # try:
+        if not self.solved:
+            states_generated = self.problem.allowed_actions(state_properties)
+            states_cost = []
+            for section_state in states_generated:
+                section_state.update({"cost": self.state_cost(section_state)})
+                states_cost.append(section_state)
+                # print(np.array(section_state['state']).reshape(
+                #     [len(section_state['state']), len(section_state['state'][-1])]))
+            sorted_states = sorted(states_cost, key=lambda kv: kv['cost'])
+            for section_rating in sorted_states:
+                self.maxNodeExplored += 1
+                have_final_state = self.problem.is_final_state(state_properties)
+                if have_final_state == "Solve":
+                    self.solved = True
+                    new_copy = copy.deepcopy(states_array)
+                    new_copy.append(section_rating['state'])
+                    print("Final for AStar")
+                    print(np.array(state_properties['state']).reshape(
+                        [len(state_properties['state']), len(state_properties['state'][-1])]))
+                    self.answerDepth = len(states_array) + 1
+                    return state_properties, states_array
+                if have_final_state == "Patient":
+                    self.problem.have_patient = True
+                if have_final_state == "Hospital":
+                    self.problem.have_patient = False
+                print("current")
+                print(np.array(state_properties['state']).reshape(
+                    [len(state_properties['state']), len(state_properties['state'][-1])]))
+                print("Have Patient: ", state_properties['have_patient'])
+                print("is Hospital: ", state_properties['is_hospital'])
+                print("Self have patient: ", self.problem.have_patient)
+            for section_rating in sorted_states:
+                new_copy = copy.deepcopy(states_array)
+                new_copy.append(section_rating['state'])
+                self.maxNodeExpanded += 1
+                self.a_star(section_rating, new_copy)
+    # except:
+    #     print('A* exceed its max recursion')

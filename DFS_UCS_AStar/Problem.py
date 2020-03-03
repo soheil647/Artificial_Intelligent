@@ -63,10 +63,10 @@ class Problem:
             allowed_moves.remove('left')
         if self.check_obstacle(state_properties, self.ambulance_x + 1, self.ambulance_y):
             allowed_moves.remove('right')
-        new_map = []  # New possible moves to iterate on
+        new_map_properties = []  # New possible moves to iterate on
         for move in allowed_moves:
-            new_map.append(self.assign_movement(state_properties, move))
-        return new_map
+            new_map_properties.append(self.assign_movement(state_properties, move))
+        return new_map_properties
 
     #  To see if agent is busy or ready for a new action
     def allowed_actions(self, state_properties):
