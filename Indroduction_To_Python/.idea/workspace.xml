@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="585b49e0-9f64-4dec-a2fa-d76d9d52587f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ca0.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ca0.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CostFunc_Regression.py" beforeDir="false" afterPath="$PROJECT_DIR$/CostFunc_Regression.py" afterDir="false" />
-    </list>
+    <list default="true" id="585b49e0-9f64-4dec-a2fa-d76d9d52587f" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -152,6 +148,7 @@
       <workItem from="1581595278532" duration="2043000" />
       <workItem from="1581599791982" duration="622000" />
       <workItem from="1582119817100" duration="59000" />
+      <workItem from="1583244160067" duration="8000" />
     </task>
     <servers />
   </component>
