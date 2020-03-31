@@ -38,5 +38,11 @@ class Population:
     def get_individual(self, index):
         return self.individuals[index]
 
+    def get_individuals(self):
+        return self.individuals
+
     def save_individual(self, index, individual_passed):
         self.individuals[index] = individual_passed
+
+    def save_individuals(self, individuals):
+        self.individuals = individuals

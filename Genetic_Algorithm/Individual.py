@@ -9,9 +9,9 @@ class Individual:
     def get_mapped_alphabet(self):
         return self.mapped_alphabet
 
-    def __decode_string_list(self, encoded_text):
+    def __decode_string_list(self, encoded_dictionary):
         new_text = []
-        for word in encoded_text:
+        for word in encoded_dictionary:
             new_word = ""
             for letter in word:
                 if letter.isupper():
@@ -23,11 +23,11 @@ class Individual:
         return new_text
 
     @staticmethod
-    def __find_each_word_common_letter(dictionary, encoded_text):
+    def __find_each_word_common_letter(global_dictionary, encoded_dictionary):
         common_letter_number_word_in_decode_list = []
-        for encoded_word in encoded_text:
+        for encoded_word in encoded_dictionary:
             common_letter_number_word_in_global = []
-            for word in dictionary:
+            for word in global_dictionary:
                 i = 0
                 while i < len(encoded_word) and i < len(word):
                     if encoded_word[i] == word[i]:
@@ -43,7 +43,8 @@ class Individual:
             self.fitness += i * common_letter_number_word_in_decode_list.count(i)
         return self.fitness
 
-    def calculate_fitness(self, dictionary, encoded_text):
-        decoded_text = self.__decode_string_list(encoded_text)
-        number_of_common_letter_list = self.__find_each_word_common_letter(dictionary, decoded_text)
+    def calculate_fitness(self, global_dictionary, encoded_dictionary):
+        self.fitness = 0
+        decoded_text = self.__decode_string_list(encoded_dictionary)
+        number_of_common_letter_list = self.__find_each_word_common_letter(global_dictionary, decoded_text)
         return self.__find_fitness(number_of_common_letter_list)
