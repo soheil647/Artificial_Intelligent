@@ -32,6 +32,28 @@ class Population:
                 fittest = self.individuals[i]
         return fittest
 
+    # @staticmethod
+    # def find_max_fitness(encoded_dictionary):
+        # max_fitness = 0
+        # for size in range(max(len(x) for x in encoded_dictionary)):
+        #     length_word = [item for item in encoded_dictionary if len(item) == size]
+        #     max_fitness += len(length_word) * size
+
+        # for word in encoded_dictionary:
+        #     max_fitness += len(word)
+        # alphabet_usage = dict.fromkeys(string.ascii_lowercase, 0)
+        # for word in encoded_dictionary:
+        #     for letter in word:
+        #         alphabet_usage[letter.lower()] += 1
+        # return sum(alphabet_usage.values())
+
+    @staticmethod
+    def find_max_fitness(encoded_dictionary, global_dictionary):
+        my_list = ['o', 'r', 's', 'f', 'w', 'm', 'b', 't', 'i', 'k', 'g', 'h', 'k', 'n', 'v', 'e', 'l', 'p', 'd', 'j', 'c', 'u', 'y', 'q', 'a', 'x']
+        my_answer = Individual(my_list)
+        my_answer.calculate_fitness(global_dictionary, encoded_dictionary)
+        return my_answer.fitness
+
     def size(self):
         return len(self.individuals)
 

@@ -18,7 +18,10 @@ class TextProcessing:
         return re.sub(r'\d+', '', self.text)
 
     def drop_punctuation(self):
-        return self.text.translate(str.maketrans('', '', string.punctuation))
+        my_punctuation = string.punctuation.replace("'", "")
+        self.text = self.text.translate(str.maketrans(my_punctuation, ' ' * len(my_punctuation)))
+        self.text = self.text.replace("'", "")
+        return self.text
 
     def drop_white_space(self):
         return self.text.strip()
@@ -30,11 +33,10 @@ class TextProcessing:
         tokens = self.tokenize_text()
         return [i for i in tokens if i not in ENGLISH_STOP_WORDS]
 
-    def do_stemming_and_tokenize(self):
+    def do_stemming(self, dictionary):
         new_text = []
         stemmer = nltk.stem.PorterStemmer()
-        tokens = self.tokenize_text()
-        for word in tokens:
+        for word in dictionary:
             new_text += stemmer.stem(word)
         return new_text
 
@@ -46,11 +48,19 @@ class TextProcessing:
             new_text += lemmatizer.lemmatize(word)
         return new_text
 
+    @staticmethod
+    def remove_two_three_length_words(dictionary_list):
+        for word in dictionary_list:
+            if len(word) <= 3:
+                dictionary_list.remove(word)
+        return dictionary_list
+
     def clean_text(self):
         self.text = self.drop_numbers()
         self.text = self.drop_punctuation()
         self.text = self.drop_stop_words_and_tokenize()
-        with open('dictionary.txt', 'w') as f:
-            for item in self.text:
-                f.write("%s " % item)
+        # self.text = self.tokenize_text()
+        self.text = self.remove_two_three_length_words(self.text)
+        self.text = list(dict.fromkeys(self.text))
+
         return self.text
