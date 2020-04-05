@@ -48,19 +48,27 @@ class TextProcessing:
             new_text += lemmatizer.lemmatize(word)
         return new_text
 
-    @staticmethod
-    def remove_two_three_length_words(dictionary_list):
-        for word in dictionary_list:
-            if len(word) <= 3:
-                dictionary_list.remove(word)
-        return dictionary_list
+    def remove_two_three_length_words(self):
+        # my_list = list(self.text)
+        # print(my_list)
+        # print(len(my_list))
+        # for i in range(len(my_list)):
+        #     print(i)
+        #     if len(my_list[i]) <= 5:
+        #         # print(word)
+        #         # while my_list.count(my_list[word]):
+        #         #     my_list.remove(my_list[word])
+        #         my_list.remove(my_list[i])
+        # print(my_list)
+        self.text = re.sub(r'\b\w{1,2}\b', '', self.text)
+        return self.text
 
     def clean_text(self):
         self.text = self.drop_numbers()
         self.text = self.drop_punctuation()
+        self.text = self.remove_two_three_length_words()
         self.text = self.drop_stop_words_and_tokenize()
         # self.text = self.tokenize_text()
-        self.text = self.remove_two_three_length_words(self.text)
         self.text = list(dict.fromkeys(self.text))
 
         return self.text

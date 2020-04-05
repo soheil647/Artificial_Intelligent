@@ -51,10 +51,13 @@ class Individual:
 
     def __find_fitness(self, decoded_dictionary, global_dictionary):
         fitness = 0
+        # word_legnths = [1]
         for decoded_word in decoded_dictionary:
             for global_word in global_dictionary:
                 if decoded_word == global_word:
-                    fitness += 1
+                    fitness += len(decoded_word) * 3
+                    # word_legnths.append(len(decoded_word))
+                    # break
         self.fitness = fitness
         return self.fitness
 
