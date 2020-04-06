@@ -7,37 +7,35 @@ import numpy as np
 
 
 class GeneticAlgorithm:
-    def __init__(self, population_size, number_of_generations, mutation_rate, tournament_size):
+    def __init__(self, population_size, number_of_generations, mutation_rate, cross_chance):
         self.population_size = population_size
         self.number_of_generations = number_of_generations
         self.mutation_rate = mutation_rate
-        self.tournament_size = tournament_size
+        self.cross_chance = cross_chance
 
-    # Randomly choose 8% of population and returns the fittest one
-    # def tournament_selection(self):
 
-    @staticmethod
-    def __create_child_from_parents(individual1_passed, individual2_passed, random_point, child_number):
-        if child_number == 2:
-            temp = individual1_passed
-            individual1_passed = individual2_passed
-            individual2_passed = temp
-
-        from_first_parent = list(individual1_passed.get_mapped_alphabet().values())[:random_point]
-        from_second_parent = list(individual2_passed.get_mapped_alphabet().values())[random_point:]
-        unused_alphabet_list = list(set(string.ascii_lowercase) - set(from_first_parent))
-        i = 0
-        for indx in range(len(from_second_parent)):
-            if from_first_parent.__contains__(from_second_parent[indx]):
-                from_second_parent[indx] = unused_alphabet_list[i]
-                i += 1
-        return Individual(from_first_parent + from_second_parent)
-
-    def __crossover(self, individual1_passed, individual2_passed):
-        random_point = random.randint(0, len(individual1_passed.get_mapped_alphabet()))
-        child1 = self.__create_child_from_parents(individual1_passed, individual2_passed, random_point, 1)
-        child2 = self.__create_child_from_parents(individual1_passed, individual2_passed, random_point, 2)
-        return child1, child2
+    # @staticmethod
+    # def __create_child_from_parents(individual1_passed, individual2_passed, random_point, child_number):
+    #     if child_number == 2:
+    #         temp = individual1_passed
+    #         individual1_passed = individual2_passed
+    #         individual2_passed = temp
+    #
+    #     from_first_parent = list(individual1_passed.get_mapped_alphabet().values())[:random_point]
+    #     from_second_parent = list(individual2_passed.get_mapped_alphabet().values())[random_point:]
+    #     unused_alphabet_list = list(set(string.ascii_lowercase) - set(from_first_parent))
+    #     i = 0
+    #     for indx in range(len(from_second_parent)):
+    #         if from_first_parent.__contains__(from_second_parent[indx]):
+    #             from_second_parent[indx] = unused_alphabet_list[i]
+    #             i += 1
+    #     return Individual(from_first_parent + from_second_parent)
+    #
+    # def __crossover(self, individual1_passed, individual2_passed):
+    #     random_point = random.randint(0, len(individual1_passed.get_mapped_alphabet()))
+    #     child1 = self.__create_child_from_parents(individual1_passed, individual2_passed, random_point, 1)
+    #     child2 = self.__create_child_from_parents(individual1_passed, individual2_passed, random_point, 2)
+    #     return child1, child2
 
     # @staticmethod
     # def __crossover(individual1_passed, individual2_passed):
@@ -60,41 +58,41 @@ class GeneticAlgorithm:
     #             i += 1
     #     return Individual(list(child.values()))
 
-    # @staticmethod
-    # def __crossover(individual1_passed, individual2_passed):
-    #     child1 = dict.fromkeys(string.ascii_lowercase, 0)
-    #     child2 = dict.fromkeys(string.ascii_lowercase, 0)
-    #     used_alphabet_child1 = []
-    #     used_alphabet_child2 = []
-    #
-    #     for letter in string.ascii_lowercase:
-    #         if random.uniform(0, 1) < 0.5:
-    #             temp = individual1_passed
-    #             individual1_passed = individual2_passed
-    #             individual2_passed = temp
-    #         if individual1_passed.mapped_alphabet[letter] not in child1.values():
-    #             child1[letter] = individual1_passed.mapped_alphabet[letter]
-    #             used_alphabet_child1.append(individual1_passed.mapped_alphabet[letter])
-    #         else:
-    #             child1[letter] = 'None'
-    #         if individual2_passed.mapped_alphabet[letter] not in child2.values():
-    #             child2[letter] = individual2_passed.mapped_alphabet[letter]
-    #             used_alphabet_child2.append(individual2_passed.mapped_alphabet[letter])
-    #         else:
-    #             child2[letter] = 'None'
-    #
-    #     unused_alphabet_child1 = list(set(string.ascii_lowercase) - set(used_alphabet_child1))
-    #     unused_alphabet_child2 = list(set(string.ascii_lowercase) - set(used_alphabet_child2))
-    #     i = 0
-    #     j = 0
-    #     for alphabet in string.ascii_lowercase:
-    #         if child1[alphabet] == 'None':
-    #             child1[alphabet] = unused_alphabet_child1[i]
-    #             i += 1
-    #         if child2[alphabet] == 'None':
-    #             child2[alphabet] = unused_alphabet_child2[j]
-    #             j += 1
-    #     return Individual(list(child1.values())), Individual(list(child2.values()))
+    @staticmethod
+    def __crossover(individual1_passed, individual2_passed):
+        child1 = dict.fromkeys(string.ascii_lowercase, 0)
+        child2 = dict.fromkeys(string.ascii_lowercase, 0)
+        used_alphabet_child1 = []
+        used_alphabet_child2 = []
+
+        for letter in string.ascii_lowercase:
+            if random.uniform(0, 1) < 0.5:
+                temp = individual1_passed
+                individual1_passed = individual2_passed
+                individual2_passed = temp
+            if individual1_passed.mapped_alphabet[letter] not in child1.values():
+                child1[letter] = individual1_passed.mapped_alphabet[letter]
+                used_alphabet_child1.append(individual1_passed.mapped_alphabet[letter])
+            else:
+                child1[letter] = 'None'
+            if individual2_passed.mapped_alphabet[letter] not in child2.values():
+                child2[letter] = individual2_passed.mapped_alphabet[letter]
+                used_alphabet_child2.append(individual2_passed.mapped_alphabet[letter])
+            else:
+                child2[letter] = 'None'
+
+        unused_alphabet_child1 = list(set(string.ascii_lowercase) - set(used_alphabet_child1))
+        unused_alphabet_child2 = list(set(string.ascii_lowercase) - set(used_alphabet_child2))
+        i = 0
+        j = 0
+        for alphabet in string.ascii_lowercase:
+            if child1[alphabet] == 'None':
+                child1[alphabet] = unused_alphabet_child1[i]
+                i += 1
+            if child2[alphabet] == 'None':
+                child2[alphabet] = unused_alphabet_child2[j]
+                j += 1
+        return Individual(list(child1.values())), Individual(list(child2.values()))
 
     # @staticmethod
     # def __crossover(individual1_passed, individual2_passed):
@@ -184,30 +182,20 @@ class GeneticAlgorithm:
 
                 new_generation = generation.get_individuals()[:int(self.population_size * 0.2)]
                 for i in range(int(self.population_size * 0.5)):
-                    # parent1, parent2 = self.tournament(generation)
-                    # child1, child2 = self.__crossover(parent1, parent2)
-                    # child1 = self.__crossover(parent1, parent2)
-                    # child1 = self.mutation(child1)
-                    # child2 = self.mutation(child2)
-                    # new_generation.append(child1)
-                    # new_generation.append(child2)
-                    # cross = False
-                    # while cross is False:
-                    if random.uniform(0, 1) < self.tournament_size:
+                    if random.uniform(0, 1) < self.cross_chance:
                         while True:
                             parent1, parent2 = random.choices(new_generation[:int(self.population_size * 0.8)], k=2)
                             if parent1 != parent2:
                                 break
                         child1, child2 = self.__crossover(parent1, parent2)
                         # child1 = self.__crossover(parent1, parent2)
-                        # child1 = self.mutation(child1)
-                        # child2 = self.mutation(child2)
+                        child1 = self.mutation(child1)
+                        child2 = self.mutation(child2)
                         new_generation.append(child1)
                         new_generation.append(child2)
-                            # cross = True
 
-                for i in range(len(new_generation)):
-                    new_generation[i] = self.mutation(new_generation[i])
+                # for i in range(len(new_generation)):
+                #     new_generation[i] = self.mutation(new_generation[i])
 
                 generation.save_individuals(new_generation)
                 print("Report Best Fitness: ", generation.get_individuals()[0].fitness)
