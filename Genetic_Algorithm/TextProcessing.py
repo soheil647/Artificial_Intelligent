@@ -49,17 +49,6 @@ class TextProcessing:
         return new_text
 
     def remove_two_three_length_words(self):
-        # my_list = list(self.text)
-        # print(my_list)
-        # print(len(my_list))
-        # for i in range(len(my_list)):
-        #     print(i)
-        #     if len(my_list[i]) <= 5:
-        #         # print(word)
-        #         # while my_list.count(my_list[word]):
-        #         #     my_list.remove(my_list[word])
-        #         my_list.remove(my_list[i])
-        # print(my_list)
         self.text = re.sub(r'\b\w{1,2}\b', '', self.text)
         return self.text
 

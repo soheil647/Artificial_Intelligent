@@ -1,9 +1,6 @@
-from Genetic_Algorithm import GeneticAlgorithm
-import time
+from code import Decoder
 
-
-start_time = time.time()
-ga = GeneticAlgorithm(50, 500, 0.2, 2)
-ga.evolve()
-print(time.time() - start_time)
-
+encoded_text = open("./Attachment/encoded_text.txt").read()
+d = Decoder(encoded_text)
+decoded_text = d.decode()
+print(decoded_text)
