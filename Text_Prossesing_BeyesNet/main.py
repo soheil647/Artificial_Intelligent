@@ -18,7 +18,7 @@ text_classifier.fit(cleaned_x_train, y_train)
 
 text_classifier.evaluate(cleaned_x_validation, y_validation)
 
-text_classifier.confusion(y_train, cleaned_x_train)
+text_classifier.confusion(y_validation, cleaned_x_validation)
 
 
 result = text_classifier.predict(cleaned_x_test)
