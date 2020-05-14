@@ -8,11 +8,11 @@ from sklearn import tree, neighbors, linear_model
 classifiers = Classifiers('./data.csv')
 classifiers.information_gain()
 
-classifiers.decision_tree(50)
-# classifiers.k_nearest_neighbors(18)
-# classifiers.logistic_classifier()
+classifiers.decision_tree(5)
+classifiers.k_nearest_neighbors(5)
+classifiers.logistic_classifier()
 
-classifiers.bagging(tree.DecisionTreeClassifier(max_depth=4), 10)
+# classifiers.bagging(tree.DecisionTreeClassifier(max_depth=4), 10)
 # classifiers.bagging(neighbors.KNeighborsClassifier(n_neighbors=18), 20)
 
 # classifiers.voting([('dt', tree.DecisionTreeClassifier(max_depth=5)), ('knn', neighbors.KNeighborsClassifier(n_neighbors=18)), ('lr', linear_model.LogisticRegression())])
