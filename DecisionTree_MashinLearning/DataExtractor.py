@@ -50,7 +50,7 @@ class DataExtractor:
         le.fit(self.DataFrame.Country)
         self.DataFrame.Country = le.transform(self.DataFrame.Country)
 
-        # self.DataFrame = pd.concat([self.DataFrame, pd.get_dummies(self.DataFrame['Country'], prefix='Country', dummy_na=True)], axis=1).drop(['Country'], axis=1)
+        self.DataFrame = pd.concat([self.DataFrame, pd.get_dummies(self.DataFrame['Country'], prefix='Country', dummy_na=True)], axis=1).drop(['Country'], axis=1)
 
     def date_get_day(self):
         self.DataFrame.Date = self.DataFrame.Date.str.split('-').str[0] + self.DataFrame.Date.str.split('-').str[1] + self.DataFrame.Date.str.split('-').str[2]
