@@ -14,7 +14,7 @@ classifiers = Classifiers('./data.csv')
 
 # classifiers.bagging(tree.DecisionTreeClassifier(max_depth=20), 10)
 
-# classifiers.bagging(neighbors.KNeighborsClassifier(n_neighbors=2), 10)
+classifiers.bagging(neighbors.KNeighborsClassifier(n_neighbors=2), 10)
 
 # classifiers.random_forest(4, 100, False)
 
